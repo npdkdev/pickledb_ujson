@@ -1,4 +1,4 @@
-import pickledb
+import pickledb_ujson as pickledb
 
 # a work in progress
 
