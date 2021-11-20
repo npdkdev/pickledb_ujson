@@ -1,8 +1,8 @@
-![Download badge](http://pepy.tech/badge/pickledb)
+![Download badge](http://pepy.tech/badge/pickledb_ujson)
 
 # pickleDB
 pickleDB is lightweight, fast, and simple database based on the
-[json](https://docs.python.org/3/library/json.html) module.
+[ujson](https://github.com/ultrajson/ultrajson) module.
 And it's BSD licensed!
 
 
@@ -33,14 +33,5 @@ $ pip install pickledb
 * [github repo](https://github.com/patx/pickledb)
 
 
-## Latest Release Notes (version: 0.9)
-* *rem(key)* now returns *False* instead of raising an exception (0.9dev)
-* Change lrem(name) to *lremlist(name)* (0.9)
-* Add *lremvalue(name, value)* (0.9)
-* Add load() option to use sigterm handler or not (0.9)
-* All *keys* must now be strings (0.8)
-* All *names* for lists must now be strings (0.8)
-* All *names* for dicts must now be strings (0.8)
-* The get(key) function now returns *False* instead of None if there is no key (0.8)
-* Switched to Python's built in json module from simplejson (0.8.1)
-
+## Latest Release Notes (version: 1.0.0)
+* Use ujson instead of json
