@@ -1,3 +1,6 @@
+# because this is a package
+poetry.lock
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
