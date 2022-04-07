@@ -36,3 +36,6 @@ $ pip install pickledb-ujson
 * [documentation](https://patx.github.io/pickledb/commands.html)
 * [pypi](http://pypi.python.org/pypi/pickledb_ujson)
 * [github repo](https://github.com/divkix/pickledb_ujson)
+
+
+[![Sponsor](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=divideprojects&utm_campaign=oss)
