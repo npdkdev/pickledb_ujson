@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pickledb_ujson"
-version = "1.0.6"
+version = "1.0.7"
 description = "Fork of PickleDB using ujson"
 authors = ["Harrison Erd <erdh@mail.broward.edu>", "Divanshu Chauhan <23524935+Divkix@users.noreply.github.com>"]
 license = "BSD-3-Clause License"
@@ -25,7 +25,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-ujson = "5.3.0"
+ujson = "5.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
