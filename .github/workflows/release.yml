@@ -9,12 +9,11 @@ on:
       version_level:
         type: choice
         description: Which version to release
-        default: ''
-        required: true
+        default: 'patch'
         options:
-        - patch
-        - minor
-        - major
+          - patch
+          - minor
+          - major
 
 jobs:
   pre-commit:
@@ -24,10 +23,11 @@ jobs:
     needs: pre-commit
     uses: divkix/reusable-workflows/.github/workflows/update-python-package-version.yml@main
     with:
-      version_level: ${{ github.events.inputs.version_level }}
+      version_level: ${{ github.event.inputs.version_level }}
 
   # fetch some info from repo such as latest tag and name in lowercase
   get-repo-info:
+    if: always()
     needs: update-version
     uses: divkix/reusable-workflows/.github/workflows/get-repo-info.yml@main
 
