@@ -37,6 +37,9 @@ jobs:
           pip3 install --upgrade poetry
           poetry config virtualenvs.create false
           poetry install
+      - name: Pytest
+        run: |
+          pytest tests.py -v
 
   automerge-dependabot-pr:
     name: Automerge Dependabot PRs
