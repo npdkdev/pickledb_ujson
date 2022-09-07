@@ -9,7 +9,6 @@ on:
       version_level:
         type: choice
         description: Which version to release
-        default: 'patch'
         options:
           - patch
           - minor
@@ -32,6 +31,7 @@ jobs:
     uses: divkix/reusable-workflows/.github/workflows/get-repo-info.yml@main
 
   build-and-test:
+    if: always()
     needs: get-repo-info
     strategy:
       fail-fast: false
@@ -46,6 +46,7 @@ jobs:
 
   # create a release on github
   create-release:
+    if: always()
     needs:
       - build-and-test
       - get-repo-info
@@ -54,6 +55,7 @@ jobs:
       tag: ${{ needs.get-repo-info.outputs.tag }}
 
   push-to-pypi:
+    if: always()
     needs:
      - create-release
      - get-repo-info
