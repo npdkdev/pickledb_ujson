@@ -91,8 +91,8 @@ class PickleDB:
 
     def dump(self):
         """Force dump memory db to file"""
-        dump(self.db, open(self.loco, "wt"))
-        self.dthread = Thread(target=dump, args=(self.db, open(self.loco, "wt")))
+        dump(self.db, open(self.loco, "w"))
+        self.dthread = Thread(target=dump, args=(self.db, open(self.loco, "w")))
         self.dthread.start()
         self.dthread.join()
         return True
