@@ -4,7 +4,6 @@ import pickledb_ujson as pickledb
 
 
 class TestClass:
-
     db = pickledb.load("tests.db", auto_dump=False)
 
     def test_load(self):

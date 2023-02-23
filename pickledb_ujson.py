@@ -44,7 +44,6 @@ def load(location, auto_dump, sig=True):
 
 
 class PickleDB:
-
     key_string_error = TypeError("Key/name must be a string!")
 
     def __init__(self, location, auto_dump, sig):
