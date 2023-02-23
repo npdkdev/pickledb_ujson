@@ -2,7 +2,7 @@
 name = "pickledb_ujson"
 version = "1.0.15"
 description = "Fork of PickleDB using ujson"
-authors = ["Harrison Erd <erdh@mail.broward.edu>", "Divanshu Chauhan <23524935+Divkix@users.noreply.github.com>"]
+authors = ["Harrison Erd <erdh@mail.broward.edu>", "Divanshu Chauhan <divkix@divkix.me>"]
 license = "BSD-3-Clause License"
 readme = "README.md"
 homepage = "https://github.com/Divkix/pickledb_ujson"
