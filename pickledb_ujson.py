@@ -2,6 +2,7 @@
 
 
 # Copyright 2019 Harrison Erd
+# Copyright 2022 Divanshu Chauhan
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -38,7 +39,7 @@ from threading import Thread
 from ujson import dump, load
 
 
-def load(location, auto_dump, sig=True):
+def load_db(location, auto_dump, sig=True):
     """Return a pickledb object. location is the path to the json file."""
     return PickleDB(location, auto_dump, sig)
 
@@ -51,7 +52,7 @@ class PickleDB:
         If the file does not exist it will be created on the first update.
         """
         self.load(location, auto_dump)
-        self.dthread = None
+        self.dump_thread = None
         if sig:
             self.set_sigterm_handler()
 
@@ -60,53 +61,55 @@ class PickleDB:
         return self.get(item)
 
     def __setitem__(self, key, value):
-        """Sytax sugar for set()"""
+        """Syntax sugar for set()"""
         return self.set(key, value)
 
     def __delitem__(self, key):
-        """Sytax sugar for rem()"""
+        """Syntax sugar for rem()"""
         return self.rem(key)
 
     def set_sigterm_handler(self):
         """Assigns sigterm_handler for graceful shutdown during dump()"""
 
         def sigterm_handler():
-            if self.dthread is not None:
-                self.dthread.join()
+            if self.dump_thread is not None:
+                self.dump_thread.join()
             sys_exit(0)
 
         signal(SIGTERM, sigterm_handler)
 
     def load(self, location, auto_dump):
-        """Loads, reloads or changes the path to the db file"""
+        """Loads, reloads, or changes the path to the db file"""
         location = path.expanduser(location)
-        self.loco = location
+        self.location = location
         self.auto_dump = auto_dump
         if path.exists(location):
-            self._loaddb()
+            self._load_db()
         else:
             self.db = {}
         return True
 
     def dump(self):
         """Force dump memory db to file"""
-        dump(self.db, open(self.loco, "w"))
-        self.dthread = Thread(target=dump, args=(self.db, open(self.loco, "w")))
-        self.dthread.start()
-        self.dthread.join()
+        with open(self.location, "w") as file:
+            dump(self.db, file)
+        self.dump_thread = Thread(target=dump, args=(self.db, open(self.location, "w")))
+        self.dump_thread.start()
+        self.dump_thread.join()
         return True
 
-    def _loaddb(self):
+    def _load_db(self):
         """Load or reload the json info from the file"""
         try:
-            self.db = load(open(self.loco))
+            with open(self.location) as file:
+                self.db = load(file)
         except ValueError:
-            if stat(self.loco).st_size == 0:  # Error raised because file is empty
+            if stat(self.location).st_size == 0:  # Error raised because file is empty
                 self.db = {}
             else:
                 raise  # File is not empty, avoid overwriting it
 
-    def _autodumpdb(self):
+    def _auto_dump_db(self):
         """Write/save the json dump into the file if auto_dump is enabled"""
         if self.auto_dump:
             self.dump()
@@ -115,7 +118,7 @@ class PickleDB:
         """Set the str value of a key"""
         if isinstance(key, str):
             self.db[key] = value
-            self._autodumpdb()
+            self._auto_dump_db()
             return True
         else:
             raise self.key_string_error
