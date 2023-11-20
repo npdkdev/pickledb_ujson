@@ -143,7 +143,7 @@ class PickleDB:
         if not key in self.db:  # return False instead of an exception
             return False
         del self.db[key]
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def totalkeys(self, name=None):
@@ -159,14 +159,14 @@ class PickleDB:
         """Add more to a key's value"""
         tmp = self.db[key]
         self.db[key] = tmp + more
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def lcreate(self, name):
         """Create a list, name must be str"""
         if isinstance(name, str):
             self.db[name] = []
-            self._autodumpdb()
+            self._auto_dump_db()
             return True
         else:
             raise self.key_string_error
@@ -174,13 +174,13 @@ class PickleDB:
     def ladd(self, name, value):
         """Add a value to a list"""
         self.db[name].append(value)
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def lextend(self, name, seq):
         """Extend a list with a sequence"""
         self.db[name].extend(seq)
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def lgetall(self, name):
@@ -199,20 +199,20 @@ class PickleDB:
         """Remove a list and all of its values"""
         number = len(self.db[name])
         del self.db[name]
-        self._autodumpdb()
+        self._auto_dump_db()
         return number
 
     def lremvalue(self, name, value):
         """Remove a value from a certain list"""
         self.db[name].remove(value)
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def lpop(self, name, pos):
         """Remove one value in a list"""
         value = self.db[name][pos]
         del self.db[name][pos]
-        self._autodumpdb()
+        self._auto_dump_db()
         return value
 
     def llen(self, name):
@@ -223,7 +223,7 @@ class PickleDB:
         """Add more to a value in a list"""
         tmp = self.db[name][pos]
         self.db[name][pos] = tmp + more
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def lexists(self, name, value):
@@ -234,7 +234,7 @@ class PickleDB:
         """Create a dict, name must be str"""
         if isinstance(name, str):
             self.db[name] = {}
-            self._autodumpdb()
+            self._auto_dump_db()
             return True
         else:
             raise self.key_string_error
@@ -242,7 +242,7 @@ class PickleDB:
     def dadd(self, name, pair):
         """Add a key-value pair to a dict, "pair" is a tuple"""
         self.db[name][pair[0]] = pair[1]
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def dget(self, name, key):
@@ -256,14 +256,14 @@ class PickleDB:
     def drem(self, name):
         """Remove a dict and all of its pairs"""
         del self.db[name]
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def dpop(self, name, key):
         """Remove one key-value pair in a dict"""
         value = self.db[name][key]
         del self.db[name][key]
-        self._autodumpdb()
+        self._auto_dump_db()
         return value
 
     def dkeys(self, name):
@@ -283,11 +283,11 @@ class PickleDB:
         first = self.db[name1]
         second = self.db[name2]
         first.update(second)
-        self._autodumpdb()
+        self._auto_dump_db()
         return True
 
     def deldb(self):
         """Delete everything from the database"""
         self.db = {}
-        self._autodumpdb()
+        self._auto_dump_db()
         return True

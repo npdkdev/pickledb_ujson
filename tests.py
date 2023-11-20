@@ -4,10 +4,10 @@ import pickledb_ujson as pickledb
 
 
 class TestClass:
-    db = pickledb.load("tests.db", auto_dump=False)
+    db = pickledb.load_db("tests.db", auto_dump=False)
 
     def test_load(self):
-        x = pickledb.load("x.db", auto_dump=False)
+        x = pickledb.load_db("x.db", auto_dump=False)
         assert x is not None
 
     def test_sugar_get(self):
